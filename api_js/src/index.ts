@@ -1,10 +1,11 @@
-const express = require('express');
+import express from 'express';
+import { Produto } from './models/produto.model';
 
 const app = express();
 
-app.use(express.json());
+app.use(express.json()); 
 
-const produtos = [];
+const produtos : Produto[] = [];
 
 app.get("/", (request, response) => {
     return response.
