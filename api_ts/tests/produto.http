@@ -1,6 +1,9 @@
 ### Listar produtos
 GET http://localhost:3000/
 
+### Buscar produto por nome
+GET http://localhost:3000/olacha
+
 ### Cadastrar produto
 POST http://localhost:3000/
 Content-Type: application/json
