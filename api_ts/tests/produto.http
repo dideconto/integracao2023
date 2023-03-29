@@ -2,7 +2,7 @@
 GET http://localhost:3000/
 
 ### Buscar produto por nome
-GET http://localhost:3000/olacha
+GET http://localhost:3000/1
 
 ### Cadastrar produto
 POST http://localhost:3000/
@@ -10,5 +10,18 @@ Content-Type: application/json
 
 {
    "nome" : "Bolacha",
+   "preco" : 4.5
+}
+
+### Deletar produto
+DELETE http://localhost:3000/1
+
+### Alterar produto
+PUT http://localhost:3000/
+Content-Type: application/json
+
+{
+   "id" : 1,
+   "nome" : "Bolacha Alterada",
    "preco" : 4.5
 }
