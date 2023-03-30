@@ -1,4 +1,3 @@
-import { Request, Response } from "express";
 import { Produto } from "../models/produto.model";
 
 let produtos: Produto[] = [];

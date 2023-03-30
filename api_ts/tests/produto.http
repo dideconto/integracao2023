@@ -1,11 +1,11 @@
 ### Listar produtos
-GET http://localhost:3000/
+GET http://localhost:3000/produto
 
 ### Buscar produto por nome
-GET http://localhost:3000/1
+GET http://localhost:3000/produto/1
 
 ### Cadastrar produto
-POST http://localhost:3000/
+POST http://localhost:3000/produto
 Content-Type: application/json
 
 {
@@ -14,10 +14,10 @@ Content-Type: application/json
 }
 
 ### Deletar produto
-DELETE http://localhost:3000/1
+DELETE http://localhost:3000/produto/1
 
 ### Alterar produto
-PUT http://localhost:3000/
+PUT http://localhost:3000/produto
 Content-Type: application/json
 
 {
