@@ -15,43 +15,47 @@ export class ItemController {
   //   });
   // }
 
-  cadastrar(request: Request, response: Response) {
+  async cadastrar(request: Request, response: Response) {
     let { idProduto, quantidade, idCarrinho } = request.params;
 
-    axios.get("http://localhost:3000/produto/1").then((resposta) => {
-      console.log(resposta.data.data);
+    let item: Item = {};
+
+    await axios
+      .get(`http://localhost:3000/produto/${idProduto}`)
+      .then((resposta) => {
+        item = {
+          produto: resposta.data.data,
+          quantidade: Number.parseInt(quantidade),
+          carrinhoId: idCarrinho,
+        };
+        console.log(resposta.data.data);
+      })
+      .catch((erro) => {
+        return response.status(404).json({
+          message: "Produto não encontrado!",
+          data: item,
+        });
+      });
+
+    if (!idCarrinho) {
+      idCarrinho = crypto.randomUUID();
+    }
+    item = repositoryItem.cadastrar(item);
+
+    return response.status(201).json({
+      message: "Produto adicionado ao carrinho!",
+      data: item,
     });
-
-    // if (!produto) {
-    //   return response.status(404).json({ message: "Produto não encontrado" });
-    // }
-
-    // if (!idCarrinho) {
-    //   idCarrinho = crypto.randomUUID();
-    // }
-
-    // let item: Item = {
-    //   produto: produto,
-    //   quantidade: Number.parseInt(quantidade),
-    //   carrinhoId: idCarrinho,
-    // };
-
-    // item = repositoryItem.cadastrar(item);
-
-    // return response.status(201).json({
-    //   message: "Produto adicionado ao carrinho!",
-    //   data: item,
-    // });
   }
 
-  // buscar(request: Request, response: Response) {
-  //   const { id } = request.params;
+  buscar(request: Request, response: Response) {
+    const { id } = request.params;
 
-  //   const itens = repositoryItem.buscar(id);
+    const itens = repositoryItem.buscar(id);
 
-  //   return response.status(200).json({
-  //     message: "ok",
-  //     data: itens,
-  //   });
-  // }
+    return response.status(200).json({
+      message: "ok",
+      data: itens,
+    });
+  }
 }

@@ -24,14 +24,26 @@ export class ProdutoController {
     });
   }
 
-  buscar(request: Request, response: Response) {
+  async buscar(request: Request, response: Response) {
     const id = Number.parseInt(request.params.id);
 
-    const produto: Produto = repository.buscar(id);
+    let tempo = Math.random() * 1000;
+    console.log(tempo);
+    await new Promise((resolve) => {
+      setTimeout(() => {
+        const produto: Produto = repository.buscar(id);
+        console.log(produto);
+        if (!produto) {
+          return response
+            .status(404)
+            .json({ message: "Produto não encontrado" });
+        }
 
-    return response.status(200).json({
-      message: "ok",
-      data: produto,
+        return response.status(200).json({
+          message: "ok",
+          data: produto,
+        });
+      }, tempo);
     });
   }
 
