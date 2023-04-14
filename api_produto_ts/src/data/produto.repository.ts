@@ -1,24 +1,31 @@
+import { PrismaClient } from "@prisma/client";
 import { Produto } from "../models/produto.model";
 
 let produtos: Produto[] = [];
 
+const prisma = new PrismaClient();
+
 export class ProdutoRepository {
-  listar(): Produto[] {
-    return produtos;
+  async listar(): Promise<Produto[]> {
+    return await prisma.produto.findMany();
   }
 
-  cadastrar(produto: Produto): Produto {
-    if (produtos.length == 0) {
-      produto.id = 1;
-    } else {
-      produto.id = produtos[produtos.length - 1].id + 1;
-    }
-    produtos.push(produto);
+  async cadastrar(produto: Produto): Promise<Produto> {
+    await prisma.produto.create({
+      data: {
+        nome: produto.nome,
+        preco: produto.preco,
+      },
+    });
     return produto;
   }
 
-  buscar(id: number): Produto {
-    return produtos.find((p) => p.id === id)!;
+  async buscar(id: number): Promise<Produto | null> {
+    return await prisma.produto.findUnique({
+      where: {
+        id: id,
+      },
+    });
   }
 
   deletar(id: number): Produto[] {
