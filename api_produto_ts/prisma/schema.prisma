@@ -15,3 +15,9 @@ model Produto {
   nome  String
   preco Float
 }
+
+model Categoria {
+  id        Int    @id @default(autoincrement())
+  nome      String
+  descricao String
+}

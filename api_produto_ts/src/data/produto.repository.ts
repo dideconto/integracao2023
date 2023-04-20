@@ -28,15 +28,33 @@ export class ProdutoRepository {
     });
   }
 
-  deletar(id: number): Produto[] {
-    const index = produtos.findIndex((p) => p.id === id)!;
-    if (index != -1) produtos.splice(index, 1);
-    return produtos;
+  async deletar(idProduto: number): Promise<Produto | null> {
+    try {
+      const produto = await prisma.produto.delete({
+        where: {
+          id: idProduto,
+        },
+      });
+      return produto;
+    } catch {
+      return null;
+    }
   }
 
-  alterar(produto: Produto): Produto {
-    const index = produtos.findIndex((p) => p.id === produto.id)!;
-    produtos[index] = produto;
-    return produto;
+  async alterar(produto: Produto | null): Promise<Produto | null> {
+    try {
+      const produtoAlterado = await prisma.produto.update({
+        where: {
+          id: produto?.id,
+        },
+        data: {
+          nome: produto?.nome,
+          preco: produto?.preco,
+        },
+      });
+      return produto;
+    } catch {
+      return null;
+    }
   }
 }

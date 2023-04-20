@@ -39,21 +39,30 @@ export class ProdutoController {
     });
   }
 
-  deletar(request: Request, response: Response) {
+  async deletar(request: Request, response: Response) {
     const id = Number.parseInt(request.params.id);
-    let produtos = repository.deletar(id);
+    let produto = await repository.deletar(id);
+
+    if (!produto) {
+      return response.status(404).json({ message: "Produto não encontrado" });
+    }
+
     return response.status(200).json({
       message: "ok",
-      data: produtos,
+      data: produto,
     });
   }
 
-  alterar(request: Request, response: Response) {
-    let produto: Produto = request.body;
-    produto = repository.alterar(produto);
+  async alterar(request: Request, response: Response) {
+    let produto: Produto | null = request.body;
+    produto = await repository.alterar(produto);
+
+    if (!produto) {
+      return response.status(404).json({ message: "Produto não encontrado" });
+    }
 
     return response.status(200).json({
-      message: "ok",
+      message: "Produto alterado",
       data: produto,
     });
   }
