@@ -1,3 +1,4 @@
+import { ApiExternaController } from "../controllers/api-externa.controller";
 import { ItemController } from "./../controllers/item.controller";
 import { Router } from "express";
 
@@ -10,5 +11,8 @@ router.post(
   "/item/:idProduto/:quantidade/:idCarrinho?",
   new ItemController().cadastrar
 );
+
+//Carrinho
+router.get("/apiexterna/:cep", new ApiExternaController().testar);
 
 export { router };
