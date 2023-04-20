@@ -2,7 +2,7 @@
 GET http://localhost:3000/produto
 
 ### Buscar produto por nome
-GET http://localhost:3000/produto/10
+GET http://localhost:3000/produto/50
 
 ### Cadastrar produto
 POST http://localhost:3000/produto

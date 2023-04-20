@@ -10,14 +10,14 @@ export class ProdutoRepository {
     return await prisma.produto.findMany();
   }
 
-  async cadastrar(produto: Produto): Promise<Produto> {
+  async cadastrar(produto: Produto | null): Promise<Produto> {
     await prisma.produto.create({
       data: {
-        nome: produto.nome,
-        preco: produto.preco,
+        nome: produto!.nome,
+        preco: produto!.preco,
       },
     });
-    return produto;
+    return produto!;
   }
 
   async buscar(id: number): Promise<Produto | null> {

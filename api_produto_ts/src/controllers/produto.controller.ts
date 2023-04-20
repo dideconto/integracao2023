@@ -14,7 +14,7 @@ export class ProdutoController {
   }
 
   async cadastrar(request: Request, response: Response) {
-    let produto: Produto = request.body;
+    let produto: Produto | null = request.body;
 
     produto = await repository.cadastrar(produto);
 
