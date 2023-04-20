@@ -7,13 +7,13 @@ import axios from "axios";
 const repositoryItem = new ItemRepository();
 
 export class ItemController {
-  // listar(request: Request, response: Response) {
-  //   const itens = repositoryItem.listar();
-  //   return response.status(200).json({
-  //     message: "ok",
-  //     data: itens,
-  //   });
-  // }
+  listar(request: Request, response: Response) {
+    const itens = repositoryItem.listar();
+    return response.status(200).json({
+      message: "ok",
+      data: itens,
+    });
+  }
 
   async cadastrar(request: Request, response: Response) {
     let { idProduto, quantidade, idCarrinho } = request.params;
@@ -28,24 +28,23 @@ export class ItemController {
           quantidade: Number.parseInt(quantidade),
           carrinhoId: idCarrinho,
         };
-        console.log(resposta.data.data);
+
+        if (!idCarrinho) {
+          item.carrinhoId = crypto.randomUUID();
+        }
+
+        item = repositoryItem.cadastrar(item);
+
+        return response.status(201).json({
+          message: "Produto adicionado ao carrinho!",
+          data: item,
+        });
       })
       .catch((erro) => {
         return response.status(404).json({
-          message: "Produto não encontrado!",
-          data: item,
+          message: erro.response.data.message,
         });
       });
-
-    if (!idCarrinho) {
-      idCarrinho = crypto.randomUUID();
-    }
-    item = repositoryItem.cadastrar(item);
-
-    return response.status(201).json({
-      message: "Produto adicionado ao carrinho!",
-      data: item,
-    });
   }
 
   buscar(request: Request, response: Response) {
