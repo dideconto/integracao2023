@@ -2,11 +2,10 @@
 using Newtonsoft.Json;
 using RabbitMQ.Client;
 
-Console.WriteLine("Hello, World!");
-
 ConnectionFactory factory = new ConnectionFactory
 {
-    HostName = "localhost"
+    HostName = "localhost",
+    // Uri = new Uri("")
 };
 
 using (IConnection connection = factory.CreateConnection())
@@ -29,8 +28,8 @@ using (IConnection connection = factory.CreateConnection())
 
         while (true)
         {
-            // string texto = DateTime.Now.ToString();
-            string texto = JsonConvert.SerializeObject(objeto);
+            string texto = DateTime.Now.ToString();
+            // string texto = JsonConvert.SerializeObject(objeto);
             byte[] mensagem = Encoding.UTF8.GetBytes(texto);
 
             Thread.Sleep(1000);
