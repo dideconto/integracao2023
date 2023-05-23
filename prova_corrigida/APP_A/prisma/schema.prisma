@@ -1,0 +1,25 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Folha {
+  id          Int     @id @default(autoincrement())
+  funcionario String
+  cpf         String
+  horas       Int     @default(0)
+  valor       Float   @default(0)
+  bruto       Float   @default(0)
+  liquido     Float   @default(0)
+  irrf        Float   @default(0)
+  inss        Float   @default(0)
+  fgts        Float   @default(0)
+  calculado   Boolean @default(false)
+}

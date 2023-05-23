@@ -1,0 +1,16 @@
+### Calcular folhas
+GET http://localhost:3000/folha/calcular
+
+### Listar folhas
+GET http://localhost:3000/folha/listar
+
+### Cadastrar folhas
+POST http://localhost:3000/folha/cadastrar
+Content-Type: application/json
+
+{
+   "funcionario" : "Diogo Deconto",
+   "cpf" : "12345679812",
+   "valor": 50,
+   "horas": 200
+}
