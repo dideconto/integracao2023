@@ -27,6 +27,11 @@ IModel SetupExchangeDirect(IConnection connection)
 {
     IModel channel = connection.CreateModel();
 
+    // Dictionary<string, object> args = new Dictionary<string, object>();
+    // args.Add("x-message-ttl", 15000);
+    // args.Add("x-max-length", 15);
+    // args.Add("x-expires", 20000);
+
     //Declarar as filas dentro do RabbitMQ
     channel.QueueDeclare(
         queue: fila_A,
