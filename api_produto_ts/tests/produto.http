@@ -9,7 +9,7 @@ POST http://localhost:3000/produto
 Content-Type: application/json
 
 {
-   "nome" : "Macarrão",
+   "nome" : "Outra coisa",
    "preco" : 15
 }
 

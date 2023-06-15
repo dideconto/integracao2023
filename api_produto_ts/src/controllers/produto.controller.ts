@@ -1,8 +1,10 @@
 import { ProdutoRepository } from "./../data/produto.repository";
 import { Request, Response } from "express";
 import { Produto } from "../models/produto.model";
+import { RabbitMQService } from "../services/rabbitmq.services";
 
 const repository = new ProdutoRepository();
+const service = new RabbitMQService();
 
 export class ProdutoController {
   async listar(request: Request, response: Response) {
@@ -17,6 +19,9 @@ export class ProdutoController {
     let produto: Produto | null = request.body;
 
     produto = await repository.cadastrar(produto);
+
+    //envie o produto para o rabbitmq
+    service.enviar(JSON.stringify(produto));
 
     return response.status(201).json({
       message: "Produto cadastrado!",
